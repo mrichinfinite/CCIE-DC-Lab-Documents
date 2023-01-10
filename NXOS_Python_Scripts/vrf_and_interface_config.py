@@ -19,3 +19,16 @@ int_135.set_state(s='no shut')
 
 # Add interface Ethernet1/36 to port-channel100 and configure LACP active, then enable the interface
 cli('conf t ; int eth1/36 ; channel-group 100 mode active ; no shut')
+
+# Show interface Ethernet1/35 details
+int_135_show = int_135.show()
+int_135_show.admin_state
+int_135_show.state
+int_135_show.eth_ip_addr
+int_135_show.eth_ip_mask
+
+# Show interface Ethernet1/36 details
+int_136 = Interface('Ethernet1/36')
+int_136_show = int_136.show()
+int_136_show.admin_state
+int_136_show.state
