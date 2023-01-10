@@ -1,7 +1,5 @@
 # Import modules
 from cisco import *
-from cisco.vrf import *
-from cisco.interface import *
 from cli import *
 
 # Create VRF and add membership to interface Ethernet1/35
