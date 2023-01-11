@@ -1,0 +1,22 @@
+---
+- name: "PLAYBOOK TO GENERATE NETWORK REPORT"
+  hosts: all
+  connection: ansible.netcommon.network_cli
+  
+  tasks:
+
+    - name: "DISPLAY ALL HOSTS VARIABLES"
+      debug:
+        var: ansible_facts
+    
+    - name: "CREATE A FOLDER CALLED REPORTS"
+      file:
+        path: "./reports"
+        state: "directory"
+      delegate_to: localhost
+    
+    - name: "GENERATE A REPORT FILE"
+      template:
+        src: "report.j2"
+        dest: "reports/{{ inventory_hostname }}.txt"
+      delegate_to: localhost

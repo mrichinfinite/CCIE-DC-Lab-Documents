@@ -1,0 +1,12 @@
+---
+- name: "PLAYBOOK TO RETRIEVE THE RUNNING CONFIGURATION"
+  hosts: all
+  connection: ansible.netcommon.network_cli
+
+  tasks:
+  
+    - name: "SAVE RUNNING CONFIG TO /home/student/ansible/running-configs" 
+      cisco.nxos.nxos_config: 
+        backup: yes
+        backup_options:
+          dir_path: /home/student/ansible/running-configs

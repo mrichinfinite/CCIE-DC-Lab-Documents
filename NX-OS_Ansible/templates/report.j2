@@ -1,0 +1,5 @@
+Report for {{ inventory_hostname }}:
+=> Hostname:                {{ ansible_facts.net_hostname }}
+=> Platform:                {{ ansible_facts.net_platform }}
+=> Software Version:        {{ ansible_facts.net_version }}
+=> Management IP:           {{ ansible_facts.net_interfaces.mgmt0.ipv4.address }}

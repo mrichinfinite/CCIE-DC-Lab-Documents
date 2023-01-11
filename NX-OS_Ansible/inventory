@@ -1,0 +1,8 @@
+[all:vars]
+ansible_network_os=cisco.nxos.nxos
+ansible_user=<username>
+ansible_password=<password>
+
+[n9k]
+n9k-a ansible_host=<mgmt-ip-address>
+n9k-b ansible_host=<mgmt-ip-address>

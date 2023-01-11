@@ -1,0 +1,8 @@
+---
+interfaces:
+  - name: <name-of-loopback-interface>
+    ip_address: <ipv4-address>
+    ospf: enabled
+  - name: <name-of-interface>
+    ip_address: <ipv4-address>
+    ospf: enabled
