@@ -5,8 +5,8 @@
 
   tasks:
   
-    - name: "SAVE RUNNING CONFIG TO /home/student/ansible/running-configs" 
+    - name: "SAVE RUNNING CONFIG TO DIRECTORY PATH" 
       cisco.nxos.nxos_config: 
         backup: yes
         backup_options:
-          dir_path: /home/student/ansible/running-configs
+          dir_path: <directory-path>
