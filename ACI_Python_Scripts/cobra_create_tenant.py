@@ -7,12 +7,13 @@ import cobra.model.pol
 import cobra.model.vns
 from cobra.internal.codec.xmlcodec import toXMLStr
 import sys
+from creds import *
 
 # Count args
 args = len(sys.argv)
 
 # Log into APIC and create dir object
-ls = cobra.mit.session.LoginSession('https://<apic-ip-address-or-hostname>', '<username>', '<password>')
+ls = cobra.mit.session.LoginSession(URL, USERNAME, PASSWORD)
 md = cobra.mit.access.MoDirectory(ls)
 md.login()
 
