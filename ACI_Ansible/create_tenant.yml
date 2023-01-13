@@ -1,5 +1,5 @@
 ---
-- name: ENSURE APPLICATION CONFIGURATION EXISTS
+- name: ENSURE TENANT CONFIGURATION EXISTS
   hosts: apic
   connection: local
   gather_facts: False
@@ -10,7 +10,7 @@
       private: no
 
   tasks:
-    - name: ENSURE APPLICATIONS TENANT EXISTS
+    - name: ENSURE TENANT EXISTS
       aci_tenant:
         host: "{{ ansible_host }}"
         username: "{{ username }}"
