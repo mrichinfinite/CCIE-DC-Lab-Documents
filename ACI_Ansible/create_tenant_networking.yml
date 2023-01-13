@@ -1,0 +1,47 @@
+---
+- name: ENSURE TENANT NETWORKING CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: False
+  
+  vars_prompt:
+    - name: "tenant"
+      prompt: "Please enter the desired name of your Tenant"
+      private: no
+
+  tasks:
+    - name: ENSURE TENANT VRF EXISTS
+      aci_vrf:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        vrf: "{{ vrf }}"
+        description: "VRF Created Using Ansible"
+
+    - name: ENSURE TENANT BRIDGE DOMAIN EXISTS
+      aci_bd:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        bd: "{{ bd | default('Test-BD') }}"
+        vrf: "{{ vrf }}"
+        description: "BD Created Using Ansible"
+
+    - name: ENSURE BRIDGE DOMAIN SUBNET EXISTS
+      aci_bd_subnet:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        bd: "{{ bd | default('Test-BD') }}"
+        gateway: "192.168.10.1"
+        mask: 24
+        description: "Subnet Created Using Ansible"
