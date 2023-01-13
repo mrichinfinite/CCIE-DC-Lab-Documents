@@ -1,0 +1,61 @@
+---
+- name: ENSURE APPLICATION PROFILE CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: ENSURE APPLICATION PROFILE EXISTS
+      aci_ap:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        descr: "App Profile Created Using Ansible"
+
+    - name: ENSURE APPLICATION EPGS EXIST
+      aci_epg:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg: "{{ item.epg }}"
+        bd: "Test-BD"
+        description: "EPGs Created Using Ansible"
+      with_items: "{{ epgs }}"
+
+    - name: ENSURE DOMAIN IS ASSOCIATED TO EPGS
+      aci_epg_to_domain:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: false
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg: "{{ item.epg }}"
+        domain: "Test-Physical"
+        domain_type: "phys"
+        encap_mode: "vlan"
+        encap: "{{ item.encap }}"
+      with_items: "{{ epgs }}"
+
+    - name: ENSURE CONTRACTS ARE ASSOCIATED TO EPGS
+      aci_epg_to_contract:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        ap: "{{ ap }}"
+        epg: "{{ item.epg }}"
+        contract: "{{ item.contract }}"
+        contract_type: "{{ item.contract_type }}"
+      with_items: "{{ epg_contracts }}"
