@@ -1,0 +1,110 @@
+---
+- name: ENSURE TENANT CONTRACT CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: False
+  
+  vars_prompt:
+    - name: "tenant"
+      prompt: "Please enter the desired name of your Tenant"
+      private: no
+
+  tasks:
+    - name: ENSURE TENANT FILTERS EXIST
+      aci_filter:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        filter: "{{ item }}"
+        descr: "Filter Created Using Ansible"
+      with_items:
+        - "https"
+        - "icmp"
+
+    - name: ENSURE HTTPS FILTER ENTRY EXISTS
+      aci_filter_entry:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        filter: "{{ item.filter }}"
+        entry: "{{ item.entry }}"
+        ether_type: "ip"
+        ip_protocol: "tcp"
+        dst_port_start: "{{ item.port }}"
+        dst_port_end: "{{ item.port }}"
+      with_items:
+        - filter: "https"
+          entry: "https"
+          port: 443
+
+    - name: ENSURE ICMP FILTER ENTRY EXISTS
+      aci_filter_entry:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        filter: "{{ item.filter }}"
+        entry: "{{ item.entry }}"
+        ether_type: "ip"
+        ip_protocol: "icmp"
+      with_items:
+        - filter: "icmp"
+          entry: "icmp"
+
+    - name: ENSURE TENANT CONTRACTS EXIST
+      aci_contract:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        contract: "{{ item }}"
+        scope: "context"
+        description: "Contract Created Using Ansible"
+      with_items:
+        - "web"
+        - "ping"
+
+    - name: ENSURE CONTRACT SUBJECTS EXIST
+      aci_contract_subject:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        contract: "{{ item.contract }}"
+        subject: "{{ item.subject }}"
+      with_items:
+        - contract: "web"
+          subject: "https"
+        - contract: "ping"
+          subject: "icmp"
+
+    - name: ENSURE CONTRACTS SUBJECTS ARE ASSOCIATED WITH FILTERS
+      aci_contract_subject_to_filter:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant_name: "{{ tenant }}"
+        contract: "{{ item.contract }}"
+        subject: "{{ item.subject }}"
+        filter: "{{ item.filter }}"
+      with_items:
+        - contract: "web"
+          subject: "https"
+          filter: "https"
+        - contract: "ping"
+          subject: "icmp"
+          filter: "icmp"
