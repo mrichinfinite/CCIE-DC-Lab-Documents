@@ -6,7 +6,7 @@
   
   vars_prompt:
     - name: "tenant"
-      prompt: "What would you like to name your Tenant?"
+      prompt: "Please enter the desired name of your Tenant: "
       private: no
 
   tasks:
