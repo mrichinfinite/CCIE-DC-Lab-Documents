@@ -90,7 +90,7 @@
         - contract: "ping"
           subject: "icmp"
 
-    - name: ENSURE CONTRACTS SUBJECTS ARE ASSOCIATED WITH FILTERS
+    - name: ENSURE CONTRACT SUBJECTS ARE ASSOCIATED WITH FILTERS
       aci_contract_subject_to_filter:
         host: "{{ inventory_hostname }}"
         username: "{{ username }}"
