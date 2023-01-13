@@ -1,0 +1,16 @@
+---
+- name: USE ACI REST MODULE
+  hosts: apic
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: ENSURE TENANT HAS L3OUT
+      aci_rest:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: False
+        method: "post"
+        path: "api/mo/uni/tn-Test/out-Test-L3Out.json"
+        content: '{"l3extOut": {"attributes": {"descr":"Created Using Ansible", "name":"Test-L3Out"}}}'
