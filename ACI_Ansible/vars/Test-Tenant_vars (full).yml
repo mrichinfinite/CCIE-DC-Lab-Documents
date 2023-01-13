@@ -1,0 +1,44 @@
+---
+tenant: Test
+vrf: "Test-VRF"
+bridge_domains:
+  - bd: "Test-BD"
+    gateway: "192.168.10.1"
+    mask: 24
+ap: "Test-AP"
+epgs:
+  - epg: "Test-EPG-1"
+    bd: "Test-BD"
+    encap: "10"
+  - epg: "Test-EPG-2"
+    bd: "Test-BD"
+    encap: "20"
+epg_contracts:
+  - epg: "Test-EPG-1"
+    contract: "web"
+    contract_type: "provider"
+  - epg: "Test-EPG-1"
+    contract: "ping"
+    contract_type: "consumer"
+  - epg: "Test-EPG-2"
+    contract: "ping"
+    contract_type: "provider"
+  - epg: "Test-EPG-2"
+    contract: "web"
+    contract_type: "consumer"
+contracts:
+  - contract: "web"
+    subject: "https"
+    filter: "https"
+  - contract: "ping"
+    subject: "icmp"
+    filter: "icmp"
+filters:
+  - filter: "https"
+    entry: "https"
+    protocol: "tcp"
+    port: 443
+  - filter: "icmp"
+    entry: "icmp"
+    protocol: "icmp"
+    port: 0
