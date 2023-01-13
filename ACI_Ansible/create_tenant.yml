@@ -1,0 +1,20 @@
+---
+- name: ENSURE APPLICATION CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: False
+  vars_prompt:
+    - name: "tenant"
+      prompt: "What would you like to name your Tenant?"
+      private: no
+
+  tasks:
+    - name: ENSURE APPLICATIONS TENANT EXISTS
+      aci_tenant:
+        host: "{{ ansible_host }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        state: "present"
+        validate_certs: False
+        tenant: "{{ tenant }}"
+        description: "Tenant Created Using Ansible"
