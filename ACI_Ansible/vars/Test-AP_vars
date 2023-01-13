@@ -1,0 +1,27 @@
+---
+  tenant: Test
+  ap: "Test-AP"
+  epgs:
+    - epg: "Test-EPG-1"
+      encap: "10"
+      contract_type: "both"
+      consumer: "ping"
+      provider: "web"
+    - epg: "Test-EPG-2"
+      encap: "20"
+      contract_type: "both"
+      consumer: "web"
+      provider: "ping"
+  epg_contracts:
+    - epg: "Test-EPG-1"
+      contract: "web"
+      contract_type: "provider"
+    - epg: "Test-EPG-1"
+      contract: "ping"
+      contract_type: "consumer"
+    - epg: "Test-EPG-2"
+      contract: "ping"
+      contract_type: "provider"
+    - epg: "Test-EPG-2"
+      contract: "web"
+      contract_type: "consumer"
