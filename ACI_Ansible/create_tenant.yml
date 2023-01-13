@@ -3,6 +3,7 @@
   hosts: apic
   connection: local
   gather_facts: False
+  
   vars_prompt:
     - name: "tenant"
       prompt: "What would you like to name your Tenant?"
