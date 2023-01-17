@@ -9,8 +9,8 @@ requests.packages.urllib3.disable_warnings(
 
 # Edit these values
 url = 'https://<ip-address-or-hostname>/ins'
-username = ''
-password = ''
+username = '<username>'
+password = '<password>'
 
 headers = {'content-type': 'application/json'}
 payload = {
