@@ -16,7 +16,7 @@ lan_cloud = handle.query_classid('FabricLanCloud')
 print(lan_cloud[0])
 
 # Create new VLAN object with the name my_vlan_10 and ID 10
-my_vlan_10 = FabricVlan(parent_mo_or_dn= lan_cloud[0], name="my_vlan_10", id="10")
+my_vlan_10 = FabricVlan(parent_mo_or_dn=lan_cloud[0], name="my_vlan_10", id="10")
 
 # Push the object to UCSM
 handle.add_mo(my_vlan_10)
