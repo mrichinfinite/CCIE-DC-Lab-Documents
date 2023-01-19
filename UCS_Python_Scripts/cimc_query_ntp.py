@@ -1,4 +1,4 @@
-# Query NTP from CIMC
+# Query NTP settings in CIMC
 
 # Imports
 from imcsdk.imchandle import ImcHandle
