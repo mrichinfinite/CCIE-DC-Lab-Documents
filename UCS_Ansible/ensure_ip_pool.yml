@@ -1,0 +1,16 @@
+---
+- name: "ENSURE IP POOL CONFIGURATION EXISTS"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "CONFIGURE IP POOL"
+      ucs_ip_pool:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-IP-Pool"
+        first_addr: "192.168.10.1"
+        last_addr: "192.168.10.10"
+        subnet_mask: "255.255.255.0"
+        default_gw: "192.168.10.254"
