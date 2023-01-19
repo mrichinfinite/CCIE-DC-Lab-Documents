@@ -1,3 +1,3 @@
-cimc_ip = '<ip-address-or-hostname>'
+cimc_ip = '<cimc-ip-address-or-hostname>'
 username = '<username>'
 password = '<password>'
