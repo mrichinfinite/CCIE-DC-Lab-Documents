@@ -1,0 +1,5 @@
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[ucsm]
+ucs_manager ucsm_ip=<ucsm-vip-or-hostname> ucsm_username=<username> ucsm_password=<password>
