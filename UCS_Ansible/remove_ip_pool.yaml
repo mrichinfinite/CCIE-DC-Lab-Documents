@@ -1,0 +1,13 @@
+---
+- name: "REMOVE IP POOL CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE IP POOL"
+      ucs_ip_pool:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-IP-Pool"
+        state: "absent"
