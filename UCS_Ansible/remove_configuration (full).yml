@@ -1,0 +1,40 @@
+---
+- name: "REMOVE IP POOL CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE IP POOL"
+      ucs_ip_pool:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-IP-Pool"
+        state: "absent"
+
+- name: "REMOVE NTP SERVER CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE NTP SERVER"
+      ucs_ntp_server:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        ntp_server: "10.10.10.1"
+        state: "absent"
+
+- name: "REMOVE VLAN CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE VLAN"
+      ucs_vlans:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-VLAN"
+        id: "10"
+        state: "absent"

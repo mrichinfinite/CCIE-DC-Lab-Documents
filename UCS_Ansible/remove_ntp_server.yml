@@ -1,0 +1,13 @@
+---
+- name: "REMOVE NTP SERVER CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE NTP SERVER"
+      ucs_ntp_server:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        ntp_server: "10.10.10.1"
+        state: "absent"

@@ -1,0 +1,46 @@
+---
+- name: "ENSURE IP POOL CONFIGURATION EXISTS"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "ENSURE IP POOL"
+      ucs_ip_pool:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-IP-Pool"
+        description: "This is my IP pool."
+        first_addr: "192.168.10.1"
+        last_addr: "192.168.10.10"
+        subnet_mask: "255.255.255.0"
+        default_gw: "192.168.10.254"
+        state: "present"
+
+- name: "ENSURE NTP SERVER CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "ENSURE NTP SERVER"
+      ucs_ntp_server:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        ntp_server: "10.10.10.1"
+        description: "This is my NTP server."
+        state: "present"
+
+- name: "ENSURE VLAN CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "ENSURE VLAN"
+      ucs_vlans:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-VLAN"
+        id: "10"
+        state: "present"

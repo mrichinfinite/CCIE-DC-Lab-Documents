@@ -1,0 +1,14 @@
+---
+- name: "ENSURE NTP SERVER CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "ENSURE NTP SERVER"
+      ucs_ntp_server:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        ntp_server: "10.10.10.1"
+        description: "This is my NTP server."
+        state: "present"

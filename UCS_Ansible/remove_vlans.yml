@@ -1,0 +1,14 @@
+---
+- name: "REMOVE VLAN CONFIGURATION"
+  hosts: ucsm
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "REMOVE VLAN"
+      ucs_vlans:
+        hostname: "{{ ucsm_ip }}"
+        username: "{{ ucsm_username }}"
+        password: "{{ ucsm_password }}"
+        name: "My-VLAN"
+        id: "10"
+        state: "absent"
