@@ -89,6 +89,3 @@ STEPS TO CONFIGURE VDC ON N7K
 12. If you ever need to switch back to the admin VDC, run the below command
 
     N7K-1-mr# switchback
-
-
-
