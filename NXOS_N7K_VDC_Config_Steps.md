@@ -1,0 +1,94 @@
+=============================
+STEPS TO CONFIGURE VDC ON N7K
+=============================
+
+1. Log into switch and show the currently configured VDCs 
+
+    N7K-1# show vdc
+
+2. Check which interfaces are currently allocated to which VDCs 
+
+    N7K-1# show vdc membership
+
+3. Create a VDC
+
+    N7K-1# conf t
+    N7K-1(config)# vdc mr
+
+4. Show the running-config of the newly created VDC, and make sure you have the correct linecard configured in the VDC
+
+    N7K-1(config-vdc)# sh run vdc
+    <output omitted>
+    vdc mr id 4
+    limit-resource module-type m1 m1xl m2xl f2e
+
+5. If the correct linecard is not configured in the VDC, then configure it, othrwise skip this step
+
+    N7K-1(config-vdc)# limit-resource module-type f3
+
+6. Allocate interfaces to the VDC
+
+    N7K-1(config-vdc)# allocate interface ethernet 1/1, eth4/1
+    Entire port-group is not present in the command. Missing ports will be included automatically
+    Moving ports will cause all config associated to them in source vdc to be removed. Are you sure you want to move the ports (y/n)?  [yes]
+
+7. Verify that the interfaces have been properly allocated
+
+    N7K-1(config-vdc)# show vdc membership
+    <output omitted>
+    vdc_id: 4 vdc_name: mr interfaces:
+            Ethernet1/1           Ethernet1/3           Ethernet1/5
+            Ethernet1/7
+
+            Ethernet4/1
+
+8. Switch to the newly created VDC and proceed through the system setup
+
+    N7K-1(config-vdc)# switchto vdc mr
+
+
+            ---- System Admin Account Setup ----
+
+
+    Do you want to enforce secure password standard (yes/no) [y]: n
+
+    Enter the password for "admin":
+    Confirm the password for "admin":
+
+            ---- Basic System Configuration Dialog VDC: 4 ----
+
+    This setup utility will guide you through the basic configuration of
+    the system. Setup configures only enough connectivity for management
+    of the system.
+
+    Please register Cisco Nexus7000 Family devices promptly with your
+    supplier. Failure to register may affect response times for initial
+    service calls. Nexus7000 devices must be registered to receive
+    entitled support services.
+
+    Press Enter at anytime to skip a dialog. Use ctrl-c at anytime
+    to skip the remaining dialogs.
+
+    Would you like to enter the basic configuration dialog (yes/no): no
+
+9. Show the interface status
+
+    N7K-1-mr# show int stat
+
+10. Enable any disabled interfaces
+
+    N7K-1-mr# conf t
+    Enter configuration commands, one per line.  End with CNTL/Z.
+    N7K-1-mr(config)# int eth1/1, eth4/1
+    N7K-1-mr(config-if-range)# no shut
+
+11. Verify that the interfaces have now been enabled
+
+    N7K-1-mr(config-if-range)# show int stat
+
+12. If you ever need to switch back to the admin VDC, run the below command
+
+    N7K-1-mr# switchback
+
+
+
