@@ -1,5 +1,5 @@
 # CCIE-DC-Lab-Documents
-Configuration guides for CCIE DC v3.0 lab exam. Most of the material here will still be relevant for the v3.1 exam which will go live in April 2024.
+Configuration guides for the CCIE DC v3.0 lab exam. Most of the material here will still be relevant for the v3.1 exam which will go live in April 2024.
 
 In this repo, you will find documents that show you how to configure various technologies found on the CCIE DC v3.0 lab exam. I personally compiled all of the documents, however the material in some of the documents was taken from various courses found on INE, Cisco Digital Learning, and Cisco DevNet Learning Labs. Therefore, much of the credit goes to INE and Cisco. I do not own some of the material that was used; INE and Cisco reserve all rights.
 
